@@ -20,33 +20,6 @@ export const Paises = () => {
   });
   console.log("resultado: ", filtrar);
 
-  const condiciones = () => {
-    if (filtrar.length > 10) {
-      <p>Ingrese más criterio de búsqueda</p>;
-    } else if (filtrar.length > 1 && filtrar.length <= 10) {
-      filtrar.map((pais) => (
-        <div>
-          <p>Nombre: {pais.name.common}</p>
-          <p>Capital: {pais.capital}</p>
-          <p>Región: {pais.region}</p>
-        </div>
-      ));
-    } else if ((filtrar.length = 1)) {
-      filtrar.map((pais) => (
-        <div>
-          <p>Nombre: {pais.name.common}</p>
-          <p>Capital: {pais.capital}</p>
-          <p>Región: {pais.region}</p>
-          <p>Population: {pais.population}</p>
-          <p>Spoken Lenguajes</p>
-          <ul>
-            <li>{pais.lenguages}</li>
-          </ul>
-        </div>
-      ));
-    }
-  };
-
   return (
     <div>
       <h1>Información Países del Mundo</h1>
@@ -54,7 +27,45 @@ export const Paises = () => {
         <label>Ingrese País:</label>
         <input type="text" value={paisNombre} onChange={handlePaisChange} />
       </form>
-      {condiciones}
+      <div>
+        {filtrar.length > 10 ? (
+          <p>Ingrese más criterio de búsqueda</p>
+        ) : filtrar.length > 1 && filtrar.length <= 10 ? (
+          <ul>
+            {filtrar.map((pais) => (
+              <li>
+                <div>
+                  <h3>Nombre: {pais.name.common}</h3>
+                  <p>Capital: {pais.capital}</p>
+                  <p>Región: {pais.region}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          filtrar.map((pais) => (
+            <div>
+              <h3>
+                Nombre: <strong>{pais.name.common}</strong>
+                <span>
+                  <img src={pais.coatOfArms.png} width="35px" />
+                </span>
+              </h3>
+
+              <p>Capital: {pais.capital}</p>
+              <p>Región: {pais.region}</p>
+              <p>Population: {pais.population}</p>
+              <p>
+                Link Google Maps:{" "}
+                <a href={pais.maps.googleMaps} target="_blank">
+                  {pais.name.common}
+                </a>
+              </p>
+              <img src={pais.flags.png} />
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };
